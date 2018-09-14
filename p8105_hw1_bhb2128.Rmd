@@ -83,3 +83,8 @@ ggplot(problem_2_df, aes(x = x, y = y, color = vec_numeric2)) + geom_point()
 ggplot(problem_2_df, aes(x = x, y = y, color = vec_factor2)) + geom_point()
 ```
 
+Color scales:
+
+plot 1 - colored with the logical vector, TRUE and FALSE were assigned different colors
+plot 2 - colored with the numeric vector, numbers between 0 and 1 were assigned to a color on the gradient from black to blue, but the data contains only 0s and 1s and nothing in between.
+plot 3 - colored with the factor vector, each factor was assigned to a color.
