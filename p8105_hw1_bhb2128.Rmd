@@ -29,12 +29,23 @@ problem_1_df <- tibble(
   vec_character,
   vec_factor
 )
-problem_1_df
+
 ```
 
-Calculate the mean of each vector
+I am able to calculate the mean of the numeric and the logical vector, but not the mean of the character or factor vector, because elements in those vectors have no numerical value. The mean of the numeric vector is the mean of the 10 numbers, for the logic vector, I think FALSE counts as 0 and TRUE counts as 1 when calculating the mean. 
 
-```{r, }
-mean(vec_numeric, vec_character, vec_factor)
+In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens? In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?
+
+Converiting the logic vector to numeric, FALSE becomes 0 and TURE becomes 1. With the character vector, everything becomes NA. The factors were converted to numeric alphabetically (e.g. a, b, c = 1, 2, 3).
+```{r}
+as.numeric(vec_logic)
+as.numeric(vec_character)
+as.numeric(vec_factor)
+```
+
+```{r}
+as.numeric(as.factor(vec_character))
+as.numeric(as.character(vec_factor))
+
 ```
 
