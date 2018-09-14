@@ -9,14 +9,32 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Problem 1
+##Problem 1
 
 ```{r}
+library(tidyverse)
+```
+
+Data frame with 4 vectors. I tried making it like the one presented in class, where the vectors are created inside the tibble function. That didn't work because refering to vec_numeric when creating vec_logic produced the 'object not found' error. Tried both "vec_logic <- vec_numeric > 2" and "vec_logic <- problem_1_df[1] > 2". 
+```{r}
+
+vec_numeric <- runif(10, min = 0, max = 5)
+vec_logic <- vec_numeric > 2
+vec_character <- c("My", "name", "is", "Brennan", "and", "I", "love", "data", "science", "yay")
+vec_factor <- factor(c("blue", "red", "green", "blue", "red", "green", "blue", "red", "green", "blue" ))
+
 problem_1_df <- tibble(
-  vec_numeric <- runif(10, min = 0, max = 5),
-  vec_logic <- (x > 2),
-  vec_character <- c("My", "name", "is", "Brennan", "and", "I", "love", "data", "science", "yay"),
-  vec_factor <- factor(c("blue", "red", "green", "blue", "red", "green", "blue", "red", "green", "blue" ))
+  vec_numeric,
+  vec_logic <- vec_numeric > 2,
+  vec_character,
+  vec_factor
 )
+problem_1_df
+```
+
+Calculate the mean of each vector
+
+```{r, }
+mean(vec_numeric, vec_character, vec_factor)
 ```
 
