@@ -2,7 +2,10 @@
 title: "p8105_hw1_bhb2128"
 author: "Brennan Baker"
 date: "September 13, 2018"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -11,12 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ##Problem 1
 
-```{r}
+```{r packages}
 library(tidyverse)
 ```
 
 Data frame with 4 vectors. I tried making it like the one presented in class, where the vectors are created inside the tibble function. That didn't work because refering to vec_numeric when creating vec_logic produced the 'object not found' error. Tried both "vec_logic <- vec_numeric > 2" and "vec_logic <- problem_1_df[1] > 2". 
-```{r}
+```{r create vectors and data frame}
 
 vec_numeric <- runif(10, min = 0, max = 5)
 vec_logic <- vec_numeric > 2
@@ -34,18 +37,49 @@ problem_1_df <- tibble(
 
 I am able to calculate the mean of the numeric and the logical vector, but not the mean of the character or factor vector, because elements in those vectors have no numerical value. The mean of the numeric vector is the mean of the 10 numbers, for the logic vector, I think FALSE counts as 0 and TRUE counts as 1 when calculating the mean. 
 
-In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens? In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?
+
 
 Converiting the logic vector to numeric, FALSE becomes 0 and TURE becomes 1. With the character vector, everything becomes NA. The factors were converted to numeric alphabetically (e.g. a, b, c = 1, 2, 3).
-```{r}
+```{r vector conversion to different types, eval = FALSE}
 as.numeric(vec_logic)
 as.numeric(vec_character)
 as.numeric(vec_factor)
 ```
 
-```{r}
+Character to factor to numeric works because the characters become factors, and then the factors can be converted to numeric alphabetically. Factor to character to numeric results in a vector of NAs, because once the factors are converted to characters, they have no numerical value.
+```{r more vector conversion, eval = FALSE}
 as.numeric(as.factor(vec_character))
 as.numeric(as.character(vec_factor))
 
+```
+
+##Problem 2
+
+Create data frame for problem 2
+```{r}
+x <- rnorm(1000)
+y <- rnorm(1000)
+vec_logic2 <- x + y > 0
+vec_numeric2 <- as.numeric(vec_logic2)
+vec_factor2 <- as.factor(vec_numeric2)
+
+problem_2_df <- tibble(
+  x,
+  y,
+  vec_logic2,
+  vec_numeric2,
+  vec_factor2
+)
+```
+
+The data fram contains `r ncol(problem_2_df)` columns and `r nrow(problem_2_df)` rows. The mean of x is `r mean(x)`, and the median of x is `r median(x)`.
+
+```{r}
+ggplot(problem_2_df, aes(x = x, y = y, color = vec_logic2)) + geom_point()
+ggsave("problem_2_plot.jpg",dpi=300)
+
+ggplot(problem_2_df, aes(x = x, y = y, color = vec_numeric2)) + geom_point()
+
+ggplot(problem_2_df, aes(x = x, y = y, color = vec_factor2)) + geom_point()
 ```
 
